@@ -1,0 +1,18 @@
+#buscar-insertar {
+    background-color: rgb(26, 164, 168);
+    margin: 2%;
+    padding: 20px;
+}
+
+.container_buscar-agregar {
+    display: flex;
+    mix-blend-mode: hard-light;
+    justify-content: space-between;
+}
+.agregarPaciente {
+    
+}
+
+button {
+    border: thick;
+}
