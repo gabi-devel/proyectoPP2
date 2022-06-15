@@ -34,7 +34,7 @@ form.reset();
 
 
 <?php
-
+if (isset($_POST['nombrePaciente'])){
 $nameSQL = $_POST['nombrePaciente'];
 
 $encontrarUser = "SELECT * FROM pacientes WHERE nombre ='$nameSQL'";
@@ -81,6 +81,7 @@ if ($resultadoBusqueda = $conexion->query($encontrarUser)) {
     }
     $result->free();
 } 
+}
 
 ?>
 
