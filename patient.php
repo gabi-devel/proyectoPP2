@@ -38,13 +38,16 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="Antecedentes" role="tabpanel" aria-labelledby="antecedentes-tab">Antecedentes</div>
-                    <div class="tab-pane fade" id="Historial" role="tabpanel" aria-labelledby="historial-tab">Historial</div>
+                    <div class="tab-pane fade" id="Historial" role="tabpanel" aria-labelledby="historial-tab">
+                        <h3>Historial</h3>
+                        <div class="buttonContainer">
+                            <button type="button" class="btn btn-primary">Agregar Comentario</button>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="Lab" role="tabpanel" aria-labelledby="lab-tab">Laboratorio</div>
                 </div>
             </div>
-            <div class="buttonContainer">
-                <button type="button" class="btn btn-primary">Agregar Comentario</button>
-            </div>
+
         </div>
 
     </div>
