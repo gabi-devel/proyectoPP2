@@ -37,7 +37,10 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="Antecedentes" role="tabpanel" aria-labelledby="antecedentes-tab">Antecedentes</div>
+                    <!-- Anterior antecedentes --><!-- <div class="tab-pane fade show active" id="Antecedentes" role="tabpanel" aria-labelledby="antecedentes-tab">Antecedentes</div> -->
+                    <div class="tab-pane fade show active" id="Antecedentes" role="tabpanel" aria-labelledby="antecedentes-tab">
+                        <textarea class="form-control" id="antecedentes" placeholder="Antecedentes"></textarea><!--  rows="3" -->
+                    </div>
                     <div class="tab-pane fade" id="Historial" role="tabpanel" aria-labelledby="historial-tab">
                         <h3>Historial</h3>
                         <div class="buttonContainer">
