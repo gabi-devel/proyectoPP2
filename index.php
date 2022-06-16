@@ -73,7 +73,7 @@ if ($resultadoBusqueda = $conexion->query($encontrarUser)) {
                   <td>'.$field3name.'</td> 
                   <td>'.$field4name.'</td> 
                   <td>'.$field5name.'</td> 
-                  <td>Link</td> 
+                  <td><a href="patient.php">Link</a></td> 
                   <td>Cobertura</td> 
                   <td>'.$field8name.'</td> 
                   <td>'.$field9name.'</td> 

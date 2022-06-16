@@ -50,8 +50,9 @@ body {
   width: 65vw;
   height: 250px;
   border-radius: 0px 10px 10px 0px;
-  background-color: rgba(69, 143, 145, 0.26);
-  /* border: 1px solid blue; */
+  /* background-color: rgba(69, 143, 145, 0.26);
+  border: 1px solid blue; */
+  background-color: rgb(255, 252, 252);
 }
 
 .generalInfoPatient span {
@@ -63,16 +64,18 @@ body {
   flex-direction: column;
   width: 75vw;
   height: 600px;
-  margin-top: 10px;
+  margin: 10px 0;
   border-radius: 10px 10px;
-  background-color: rgba(69, 143, 145, 0.26);
+  /* background-color: rgba(69, 143, 145, 0.26);background-color: rgb(255, 252, 252); */
+  border-radius: 0 15px 15px;
 }
 
 .medicalInfoTabs {
   display: flex;
   flex-direction: column;
   width: 75vw;
-  height: 550px;
+  /* height: 550px; */
+  margin-bottom: 10px;
   border-radius: 10px 10px;
 }
 
@@ -82,11 +85,23 @@ body {
     justify-content: center;
 }
 
-.nav-item,
-.nav-tab {
+.nav-tabs {
+  background-color: rgba(193, 243, 247, 0.966);
+}
+.nav-item {
   background-color: rgba(69, 143, 145, 0.26);
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .antecede-tab {
-  border-radius: 10px 0px 0px 0px;
+  /* border-radius: 10px 0px 0px 0px; */
+}
+
+.nav-link.active {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+#antecedentes {
+  height: 200px;
+  border-radius: 0 1rem 1rem;
 }
