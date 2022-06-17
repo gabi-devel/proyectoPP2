@@ -34,11 +34,11 @@ form.reset();
 
 
 <?php
-if (isset($_POST['nombrePaciente'])){
-$nameSQL = $_POST['nombrePaciente'];
+$name = $_POST['nombrePaciente'];
+if (isset($name)){
 
-$encontrarUser = "SELECT * FROM pacientes WHERE nombre ='$nameSQL'";
-if (($result = mysqli_query($conexion, $encontrarUser)) === false) {
+$encontrarUser = "SELECT * FROM pacientes WHERE nombre ='$name'";
+if (($result1 = mysqli_query($conexion, $encontrarUser)) === false) {
     die(mysqli_error($conexion));
 };
 
@@ -57,6 +57,7 @@ echo '<table border="0" cellspacing="2" cellpadding="2" class="table table-light
 
 if ($resultadoBusqueda = $conexion->query($encontrarUser)) {
     while ($row = $resultadoBusqueda->fetch_assoc()) {
+        $field0name = $row["id"];
         $field1name = $row["nombre"];
         $field2name = $row["apellido"];
         $field3name = $row["dni"];
@@ -73,13 +74,13 @@ if ($resultadoBusqueda = $conexion->query($encontrarUser)) {
                   <td>'.$field3name.'</td> 
                   <td>'.$field4name.'</td> 
                   <td>'.$field5name.'</td> 
-                  <td><a href="patient.php">Link</a></td> 
+                  <td><a href="patient.php?id='.$field0name.'">Link</a></td> 
                   <td>Cobertura</td> 
                   <td>'.$field8name.'</td> 
                   <td>'.$field9name.'</td> 
               </tr>';
     }
-    $result->free();
+    /* $result->free(); */
 } 
 }
 
