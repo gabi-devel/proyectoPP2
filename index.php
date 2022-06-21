@@ -12,159 +12,164 @@
 </head>
 <body>
 
-
-<section id="buscar-insertar">    
-
+<!-- Buscar - Borrar -->
+<section id="search_clear">    
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="container_buscar-agregar" id="myForm">
     <div class="buscar">
-        <label>Buscar paciente: <input type="text" name="nombrePaciente"></label>
+        <label>DNI paciente: <input type="text" name="dniPaciente"></label>
         <button type="submit" name="submit" value="Buscar">Buscar</button>
-        <button type="submit" name="clear" value="clear" onclick="myFunction()">Borrar</button>
+        <button type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
     </div>
-    <button type="button" name="agregar" value="agregar" class="agregarPaciente" data-bs-toggle="modal" data-bs-target="#agregarPaciente">Agregar Paciente</button>
-<script>
-object.onclick = function(){
-    var form = document.getElementById("myForm");
-form.reset();
-};
-
-</script>
+    <button type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
 </form><br><br>
-
-
-
-<?php
-$name = $_POST['nombrePaciente'];
-if (isset($name)){
-
-$encontrarUser = "SELECT * FROM pacientes WHERE nombre ='$name'";
-if (($result1 = mysqli_query($conexion, $encontrarUser)) === false) {
-    die(mysqli_error($conexion));
+<script>
+document.getElementById("clear").onclick = function(){
+    document.getElementById("myForm").reset();
 };
 
-echo '<table border="0" cellspacing="2" cellpadding="2" class="table table-light"> 
-      <tr> 
-        <td> <font face="Arial">Nombre</font> </td> 
-        <td> <font face="Arial">Apellido</font> </td> 
-        <td> <font face="Arial">DNI</font> </td> 
-          <td> <font face="Arial">Fecha de Nacimiento</font> </td> 
-          <td> <font face="Arial">Sexo</font> </td> 
-          <td> <font face="Arial">Historia clinica</font> </td> 
-          <td> <font face="Arial">Cobertura</font> </td> 
-          <td> <font face="Arial">Telefono</font> </td> 
-          <td> <font face="Arial">Direccion</font> </td> 
-      </tr>';
-
-if ($resultadoBusqueda = $conexion->query($encontrarUser)) {
-    while ($row = $resultadoBusqueda->fetch_assoc()) {
-        $field0name = $row["id"];
-        $field1name = $row["nombre"];
-        $field2name = $row["apellido"];
-        $field3name = $row["dni"];
-        $field4name = $row["fecha_nac"];
-        $field5name = $row["sexo"]; 
-        /* $field6name = "Link"; 
-        $field7name = "---"; */
-        $field8name = $row["tel"]; 
-        $field9name = $row["direccion"]; 
-
-        echo '<tr> 
-                  <td>'.$field1name.'</td> 
-                  <td>'.$field2name.'</td> 
-                  <td>'.$field3name.'</td> 
-                  <td>'.$field4name.'</td> 
-                  <td>'.$field5name.'</td> 
-                  <td><a href="patient.php?id='.$field0name.'">Link</a></td> 
-                  <td>Cobertura</td> 
-                  <td>'.$field8name.'</td> 
-                  <td>'.$field9name.'</td> 
-              </tr>';
-    }
-    /* $result->free(); */
-} 
+let add = document.getElementById("agregarPaciente");
+function cambiar() {
+    document.getElementById("agregarPaciente_Form").setAttribute("method", "POST");
 }
+add.onclick = cambiar; 
+</script>
 
+<script> /* Prueba para q no se siga enviando datos vacios a MySQL */
+    document.getElementById("submit").onclick = function() {
+        document.getElementById("agregarPaciente_Form").removeAttribute("method");
+    }; 
+</script>
+
+<!-- Tabla Paciente -->
+<?php 
+if(isset($_POST['dniPaciente'])) {
+    $dni = $_POST['dniPaciente'];
+    $encontrarUser = "SELECT * FROM pacientes WHERE dni ='$dni'";
+    $result1 = mysqli_query($conexion, $encontrarUser) or die("Problemas en el select: ".mysqli_error($conexion));
+
+    if (isset($dni)){
+        while ($dato=mysqli_fetch_array($result1)) { 
+            echo 
+                '<table border="0" cellspacing="2" cellpadding="2" class="table table-light"> 
+                    <tr> 
+                        <td> <font face="Arial">Nombre</font> </td> 
+                        <td> <font face="Arial">Apellido</font> </td> 
+                        <td> <font face="Arial">DNI</font> </td> 
+                        <td> <font face="Arial">Fecha de Nacimiento</font> </td> 
+                        <td> <font face="Arial">Sexo</font> </td> 
+                        <td> <font face="Arial">Historia clinica</font> </td> 
+                        <td> <font face="Arial">Cobertura</font> </td> 
+                        <td> <font face="Arial">Telefono</font> </td> 
+                        <td> <font face="Arial">Direccion</font> </td> 
+                    </tr>
+                    <tr>
+                        <td>'.$dato["nombre"].'</td> 
+                        <td>'.$dato["apellido"].'</td> 
+                        <td>'.$dato["dni"].'</td> 
+                        <td>'.$dato["fecha_nac"].'</td> 
+                        <td>'.$dato["sexo"].'</td> 
+                        <td><a href="patient.php?id='.$dato["id"].'">Link</a></td> 
+                        <td>Cobertura</td> 
+                        <td>'.$dato["tel"].'</td> 
+                        <td>'.$dato["direccion"].'</td>
+                    </tr>
+                    </table>';
+                    
+                }   
+    $result1->free();
+    } 
+} 
 ?>
-
-<!-- Modal -->
-<div class="modal fade" id="agregarPaciente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar Paciente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">DNI</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="control-label" for="date">Fecha de Nacimiento</label>
-                <input type="text" class="form-control" id="date" name="date" placeholder="Seleccionar fecha">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Sexo</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Historia Clinica</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Cobertura</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Telefono</label>
-                <input type="text" class="form-control" id="">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Direccion</label>
-                <input type="text" class="form-control" id="">
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>  
-        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>
-
 </section>
 
+<!-- Formulario: Agregar -->
+<nav id="add__container">
+    <div class="add__div">
+        <div class="add__item">
+            <p class="add__title" id="home-page">Página principal</p>
+            <div id="add">
+                <form role="form" action="index.php" id="agregarPaciente_Form">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="" name="surname">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">DNI</label>
+                        <input type="text" class="form-control" name="newDNI">
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label" for="date">Fecha de Nacimiento</label>
+                        <input type="text" class="form-control" id="date" name="date" placeholder="Seleccionar fecha">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Sexo</label>
+                        <input type="text" class="form-control" name="newGender">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Telefono</label>
+                        <input type="text" class="form-control" name="newTel">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Direccion</label>
+                        <input type="text" class="form-control" name="newAddress">
+                    </div>
+                    <button type="submit" id="submit" class="btn btn-primary" name="submit" value="Submit">Agregar</button>  
+                </form>    
+            </div>
+        </div>
+    </div>
+</nav>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> <!-- time picker -->
-<!-- Bootstrap Date-Picker Plugin -->
+<!-- Javascript para el Modal -->
+<script>
+    const botonAgregar = document.querySelector('#agregarPaciente');
+    const agregarDiv = document.querySelector('.add__div');
+    const modalAparece = () => {
+        agregarDiv.classList.toggle('active');
+    }
+    botonAgregar.addEventListener('click', modalAparece);
+</script>
+
+<!-- Insertar datos del Form a MySQL -->
+<?php  
+if(isset($_POST['name'])) { 
+    $fname = $_POST['name'];
+    $nAp = $_POST['surname'];
+    $nD = $_POST['newDNI'];
+    $ndate = $_POST['date'];
+    $nnewGender = $_POST['newGender'];
+    $nnewTel = $_POST['newTel'];
+    $nnewAddress = $_POST['newAddress'];
+
+    $sql = "INSERT INTO pacientes (nombre, apellido, dni, fecha_nac, sexo, tel, direccion) VALUES ('".$fname."', '".$nAp."', '".$nD."', '".$ndate."', '".$nnewGender."', '".$nnewTel."', '".$nnewAddress."')";
+
+    $results = $conexion->query($sql); 
+} 
+mysqli_close($conexion);   
+?>      
+
+<!-- date picker -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     $(document).ready(function(){
         var date_input=$('input[name="date"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
-            format: 'yyyy/mm/dd',
+            format: 'yyyy-mm-dd',
             container: container,
             todayHighlight: true,
             autoclose: true,
         })
     })
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
