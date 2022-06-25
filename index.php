@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -153,9 +153,9 @@ mysqli_close($conexion);
 ?>      
 
 <!-- date picker -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<script type="text/javascript" src="node_modules\jquery\dist\jquery.min.js"></script> 
+<script type="text/javascript" src="bootstrap\datepicker\bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="bootstrap\datepicker\bootstrap-datepicker3.css"/>
 <script>
     $(document).ready(function(){
         var date_input=$('input[name="date"]'); //our date input has the name "date"
@@ -169,7 +169,6 @@ mysqli_close($conexion);
     })
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
