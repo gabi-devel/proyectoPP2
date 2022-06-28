@@ -68,7 +68,10 @@ if(isset($_POST['dniPaciente'])) {
                         <td>'.$dato["dni"].'</td> 
                         <td>'.$dato["fecha_nac"].'</td> 
                         <td>'.$dato["sexo"].'</td> 
-                        <td><a href="patient.php?id='.$dato["id"].'">Link</a></td> 
+                        <td><form action="http://localhost/proyectoPP2/patient.php" method="post">
+                            <input type="hidden" name="id" value='.$dato["id"].'/>
+                            <input type="submit" value="Info"/>
+                            </form></td>                         
                         <td>Cobertura</td> 
                         <td>'.$dato["tel"].'</td> 
                         <td>'.$dato["direccion"].'</td>

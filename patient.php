@@ -1,6 +1,6 @@
 <?php require 'config.php'; 
 
-$variable = $_GET['id'];
+$variable = $_POST['id'];
 
 $idPaciente = "SELECT nombre, apellido FROM pacientes WHERE id = '$variable'";
 if (($result2 = mysqli_query($conexion, $idPaciente)) === false) {
@@ -61,7 +61,10 @@ if ($result = $conexion -> query($idPaciente)) {
                         <textarea class="form-control" id="antecedentes" placeholder="Antecedentes"></textarea>
                     </div>
                     <div class="tab-pane fade" id="Historial" role="tabpanel" aria-labelledby="historial-tab">
-                        <h3>Historial</h3>
+                        <div class="comentario">Tomografia computalizada. Todo Correcto  <br>
+                    Otro renglon con info</div>
+                        <div class="comentario">Tomografia computalizada 2. Todo Correcto</div>
+                        <div class="comentario">Tomografia computalizada 3. Todo Correcto</div>
                         <div class="buttonContainer">
                             <button type="button" class="btn btn-primary">Agregar Comentario</button>
                         </div>
