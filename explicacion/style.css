@@ -1,0 +1,18 @@
+* {
+    margin: 10px;
+}
+
+pre {
+    position: relative;
+    display: block;
+    background-color: #1f2024;
+    font-family: Monospace;
+    font-size: 13px;
+    color: #f2f2fa;
+    white-space: pre-wrap;
+    line-height: 1.4em;
+    padding: 15px;
+    margin: 0;
+    border: 0;
+    border-radius: 4px;
+}
