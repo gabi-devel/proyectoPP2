@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Login y Registro en PHP</h1>
+    <a href="https://compucenter33.blogspot.com/2021/05/blog-post.html">Tutorial</a>
+    
+    <p>En la carpeta de nuestro proyecto, pegamos la carpeta de (Plantilla) admin</p>
+
+    <p>En phpmyadmin creamos la base de datos, la llamamos admin01
+        <br/>Vamos a la pestaña SQL le agregamos el siguiente código para crear la tabla y los campos:</p>
+<pre>CREATE TABLE `users` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(255) NOT NULL DEFAULT 'nombre',
+	`apellido` VARCHAR(255) NOT NULL DEFAULT 'apellido',
+	`email` VARCHAR(255) NOT NULL DEFAULT 'email',
+	`password` VARCHAR(255) NOT NULL DEFAULT 'password',
+	`created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+);
+</pre>
+<p>Continuar.</p>
+<br/>
+
+<p>Creamos el archivo config.php y le agregamos la conexión a la base de datos:
+    <br/>Debe ponerse el nombre de la base de datos: en este caso fue admin01
+</p>
+<pre><?php
+    $dsn = 'mysql:dbname=admin01;host=localhost';
+    $user = 'root';
+    $password = '';
+     
+    try
+    {
+        $pdo = new PDO($dsn,$user,$password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    catch(PDOException $e)
+    {
+        echo "PDO error".$e->getMessage();
+        die();
+    }
+    ?></pre>
+
+    <p>Tomamos el archivo login.html y lo renombramos a login.php y agregamos en la primera línea este código,
+        encargado de traernos la conexión a la base de datos y comprobar si existe el usuario y su password</p>
+<pre><?php
+    session_start();
+    require_once('config.php');
+     
+    if(isset($_POST['submit']))
+    {
+        if(isset($_POST['email'],$_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']))
+        {
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+     
+            if(filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                $sql = "select * from users where email = :email ";
+                $handle = $pdo->prepare($sql);
+                $params = ['email'=>$email];
+                $handle->execute($params);
+                if($handle->rowCount() > 0)
+                {
+                    $getRow = $handle->fetch(PDO::FETCH_ASSOC);
+                    if(password_verify($password, $getRow['password']))
+                    {
+                        unset($getRow['password']);
+                        $_SESSION = $getRow;
+                        header('location:dashboard.php');
+                        exit();
+                    }
+                    else
+                    {
+                        $errors[] = "Error en  Email o Password";
+                    }
+                }
+                else
+                {
+                    $errors[] = "Error Email o Password";
+                }
+                
+            }
+            else
+            {
+                $errors[] = "Email no valido";	
+            }
+     
+        }
+        else
+        {
+            $errors[] = "Email y Password son requeridos";	
+        }
+     
+    }
+    ?>
+</pre>
+<p>Luego pegamos debajo de card-body:</p>
+<pre><?php
+    if (isset($errors) && count($errors) > 0) {
+        foreach ($errors as $error_msg) {
+            echo '<div class="alert alert-danger">' . $error_msg . '</div>';
+        }
+    }
+?></pre>
+<p>En los input agregamos un name:
+    <br/>Porque teníamos el id que sirve para javascript
+    <br/>Pero necesitabamos un name que sirve para php. Porque se convierte en una variable para enviar y recibir.
+</p>
+<p>A la etiqueta form le agrego:</p>
+<pre>method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"</pre>
+<p>Puedo investigar la variable server en internet.</p>
+<p>Reemplazamos el botón de bootstrap por:</p>
+<pre><button type="submit" name="submit" class="btn btn-primary">Login</button></pre>
+<p>Reemplazamos la línea donde dice Need an account por:</p>
+<pre><div class="small"><a href="register.php">Registrese!</a></div></pre>
+
+<p>Para generar un servidor virtual y ver cómo va, en la terminal:</p>
+<pre>php -S localhost:8000</pre>
+
+<p>En el archivo login.php teniamos la location: dashboard.php
+    <br/>Así que renombramos el index.html por dashboard.php
+</p>
+
+<p>Renombrar register.html por PHP
+    <br/>
+</p>
+<pre><?php
+    session_start();
+    require_once('config.php');
+     
+    if(isset($_POST['submit']))
+    {
+        if(isset($_POST['nombre'],$_POST['apellido'],$_POST['email'],$_POST['password']) && !empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['email']) && !empty($_POST['password']))
+        {
+            $firstName = trim($_POST['nombre']);
+            $lastName = trim($_POST['apellido']);
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+            //$hashPassword = $password;
+            $options = array("cost"=>4);
+            $hashPassword = password_hash($password,PASSWORD_BCRYPT,$options);
+            $date = date('Y-m-d H:i:s');
+     
+            if(filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                $sql = 'select * from users where email = :email';
+                $stmt = $pdo->prepare($sql);
+                $p = ['email'=>$email];
+                $stmt->execute($p);
+                
+                if($stmt->rowCount() == 0)
+                {
+                    $sql = "insert into users (nombre, apellido, email, `password`, created_at,updated_at) values(:vnombre,:vapellido,:email,:pass,:created_at,:updated_at)";
+                
+                    try{
+                        $handle = $pdo->prepare($sql);
+                        $params = [
+                            ':vnombre'=>$firstName,
+                            ':vapellido'=>$lastName,
+                            ':email'=>$email,
+                            ':pass'=>$hashPassword,
+                            ':created_at'=>$date,
+                            ':updated_at'=>$date
+                        ];
+                        
+                        $handle->execute($params);
+                        
+                        $success = 'Usuario creado correctamente!!';
+                        
+                    }
+                    catch(PDOException $e){
+                        $errors[] = $e->getMessage();
+                    }
+                }
+                else
+                {
+                    $valFirstName = $firstName;
+                    $valLastName = $lastName;
+                    $valEmail = '';
+                    $valPassword = $password;
+     
+                    $errors[] = 'el Email ya esta registrado';
+                }
+            }
+            else
+            {
+                $errors[] = "el Email no es valido";
+            }
+        }
+        else
+        {
+            if(!isset($_POST['nombre']) || empty($_POST['nombre']))
+            {
+                $errors[] = 'el nombre es requerido';
+            }
+            else
+            {
+                $valFirstName = $_POST['apellido'];
+            }
+            if(!isset($_POST['apellido']) || empty($_POST['apellido']))
+            {
+                $errors[] = 'el apellido es requerido';
+            }
+            else
+            {
+                $valLastName = $_POST['apellido'];
+            }
+     
+            if(!isset($_POST['email']) || empty($_POST['email']))
+            {
+                $errors[] = 'Email es requerido';
+            }
+            else
+            {
+                $valEmail = $_POST['email'];
+            }
+     
+            if(!isset($_POST['password']) || empty($_POST['password']))
+            {
+                $errors[] = 'el Password es requerido';
+            }
+            else
+            {
+                $valPassword = $_POST['password'];
+            }
+            
+        }
+     
+    }
+    ?></pre>
+<p>La función trim se encarga de limpiar los espacios en blanco (para que en comparación de caracteres, el nombre se lea igual)
+   <br/>En sql into users: usamos (variable nombre) :vnombre 
+</p>
+<p>Debajo de card-body agregamos:</p>
+<pre><?php 
+    if(isset($errors) && count($errors) > 0)
+    {
+        foreach($errors as $error_msg)
+        {
+            echo '<div class="alert alert-danger">'.$error_msg.'</div>';
+        }
+    }
+    
+    if(isset($success))
+    {
+        
+        echo '<div class="alert alert-success">'.$success.'</div>';
+    }
+?>
+</pre>
+<p>En form agregamos el método post:</p>
+<pre>method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>"</pre>
+<p>En los input agregamos los name
+    <br/>Reemplazamos el botón:
+</p>
+<pre>button type="submit" name="submit" class="btn btn-primary">Registrarse</pre>
+<p>Ancor: login.php</p>                                                
+   
+<h2>Probamos crear usuario</h2>
+<p>Puse mis datos, y como contraseña: 123
+    <br/>Si se crea correctamente, vamos a verlo en phpMyAdmin</p>
+
+<p>En dashboard.php arriba de todo agregamos:</p>
+<pre><?php 
+    session_start();
+  
+    if(!$_SESSION['id']){
+        header('location:login.php');
+    }
+ 
+?></pre>
+<p>Significa que si no existe, lo redirecciona a la página de login</p>
+
+<h2>Logout</h2>
+<p>Creamos el archivo: logout.php
+    <br/>Para que tenga session_destroy() y redirecciona a login.php
+</p>
+<pre><?php
+    session_start();
+    if(isset($_SESSION)){
+        session_destroy();
+        header('location:login.php');
+        exit();
+    }
+?></pre>
+<p>Para probar, abajo de Dashboard le agrego:</p>
+<pre><h1>Bienvenido <?php echo ucfirst($_SESSION['nombre']); ?></h1>
+    <a href="logout.php?logout=true">Logout</a></pre>
+<p>Pero mejor si lo pongo reemplazando la parte de Navbar Search</p>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>
