@@ -188,7 +188,6 @@ if(isset($_POST['dniPaciente'])) {
                         <td> <font face="Arial">Fecha de Nacimiento</font> </td> 
                         <td> <font face="Arial">Sexo</font> </td> 
                         <td> <font face="Arial">Historia clinica</font> </td> 
-                        <td> <font face="Arial">Cobertura</font> </td> 
                         <td> <font face="Arial">Telefono</font> </td> 
                         <td> <font face="Arial">Direccion</font> </td> 
                     </tr>
@@ -198,11 +197,10 @@ if(isset($_POST['dniPaciente'])) {
                         <td>'.$dato["dni"].'</td> 
                         <td>'.$dato["fecha_nac"].'</td> 
                         <td>'.$dato["sexo"].'</td> 
-                        <td><form action="http://localhost/proyectoPP2/patient.php" method="post">
+                        <td><form action="proyectoPP2/patient.php" method="post">
                             <input type="hidden" name="id" value='.$dato["id"].'/>
                             <input type="submit" value="Info"/>
-                            </form></td>                         
-                        <td>Cobertura</td> 
+                            </form></td>           
                         <td>'.$dato["tel"].'</td> 
                         <td>'.$dato["direccion"].'</td>
                     </tr>
