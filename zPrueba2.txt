@@ -1,7 +1,3 @@
 Que se yo
-<<<<<<< HEAD
 Estan re locos
-=======
-Holisss
-Algo masss
->>>>>>> nombreRama
+Holaaa
