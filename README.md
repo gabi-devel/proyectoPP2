@@ -1,3 +1,0 @@
-# proyectoPP2
-
-HolaHolaHola

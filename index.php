@@ -1,8 +1,8 @@
 <?php
-session_start();
+/**/ session_start(); 
 require_once('config.php');
  
-if(isset($_POST['submit']))
+/**/ if(isset($_POST['submit']))
 {
 	if(isset($_POST['email'],$_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']))
 	{
@@ -45,8 +45,10 @@ if(isset($_POST['submit']))
 	{
 		$errors[] = "Email y Password son requeridos";	
 	}
-}
+} 
+/* header('location:dashboard.php'); */
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
