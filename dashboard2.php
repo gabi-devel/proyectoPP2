@@ -20,10 +20,10 @@ require_once "./pruebas/coments.php";
         <meta name="author" content="" />
         <title>Historia Clinica</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="proyectoPP2//bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
-    <link rel="stylesheet" href="proyectoPP2/style.css">
+        <link rel="stylesheet" href="bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
+        <link rel="stylesheet" href="proyectoPP2/style.css">
+        <link rel="stylesheet" href="styleLoginReg.css">
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand colorPrincipal"><!-- navbar-dark  -->
@@ -98,7 +98,6 @@ require_once "./pruebas/coments.php";
             <div id="layoutSidenav_content">
                 <main>
                     <div class=" container-fluid px-4">
-
                             <?php require 'proyectoPP2/config.php'; ?>
                             <h2 class="mt-4">
                         <?php

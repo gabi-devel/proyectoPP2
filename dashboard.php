@@ -17,10 +17,10 @@
         <meta name="author" content="" />
         <title>Buscador</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="proyectoPP2//bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
-    <link rel="stylesheet" href="proyectoPP2/style.css">
+        <link rel="stylesheet" href="bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
+        <link rel="stylesheet" href="proyectoPP2/style.css">
+        <link rel="stylesheet" href="styleLoginReg.css">
     </head>
     <body class="sb-nav-fixed">
 
@@ -84,12 +84,13 @@
 
 <!-- Tabla: Buscar - Borrar -->
 <section id="search_clear">    
-<form action="<?php echo "dashboard2.php"?>" method="post" class="container_buscar-agregar" id="myForm">
+<form action="<?php echo 'dashboard2.php'?>" method="post" class="container_buscar-agregar" id="myForm">
     <div>
         <label>DNI paciente: <input type="number" name="dniPaciente"></label>
         <button type="submit" name="submit" value="Buscar">Buscar</button>
         <button type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
     </div>
+};
     <button type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
 </form><br><br>
 <script>

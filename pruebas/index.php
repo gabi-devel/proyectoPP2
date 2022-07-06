@@ -123,17 +123,6 @@ require_once "coments.php";
                             }
                         ?>
                         </h2>
-                        <!-- <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Charts</li>
-                        </ol> 
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have been customized - for further customization options, please visit the official
-                                <a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a>
-                                .
-                            </div>
-                        </div>-->
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card mb-4">
@@ -141,7 +130,6 @@ require_once "coments.php";
                                         <i class="fas fa-chart-bar me-1"></i>
                                         Datos personales
                                     </div>
-                                    <!-- <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div> -->
                                     <?php
                                         foreach ($info as $datoPorColumna) { // o while
                                             foreach ($datoPorColumna as $datito){
@@ -158,7 +146,6 @@ require_once "coments.php";
                                         <i class="fas fa-chart-pie me-1"></i>
                                         Otros datos
                                     </div>
-                                    <!-- <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div> -->
                                     <?php
                                         foreach ($todosComen as $datoPorColumna) { // o while
                                             echo '<div class="border border-2 border-secondary rounded m-3 p-3 pb-0">';
@@ -193,7 +180,7 @@ require_once "coments.php";
             </div>
         </div>
 <?php echo '<script>
-            console.log('.$datoPorColumna["identificador"].');
+            console.log('.$datoPorColumna["pacienteID"].');
         </script>';
 ?>
 <script>
