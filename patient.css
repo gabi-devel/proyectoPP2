@@ -59,6 +59,10 @@ body {
   padding: 10px;
 }
 
+.generalInfoPatient h5{
+  padding: 5px;
+}
+
 .medicalInfo {
   display: flex;
   flex-direction: column;
@@ -113,4 +117,14 @@ body {
   background-color: aliceblue;
   border: 2px double rgba(69, 143, 145, 0.26);;
   border-radius: 10px 10px;
+}
+
+.infoPaciente{
+  display: flex;
+  align-items: center;
+  justify-content: space-between	;
+  width: 63vw;
+  margin:0px 1vw;
+  padding: 7px;
+  /*border:1px solid red;*/
 }

@@ -1,4 +1,4 @@
-<?php require 'config.php'; 
+<?php require 'config.php';
 
 $variable = $_POST['id'];
 
@@ -10,9 +10,9 @@ if (($result2 = mysqli_query($conexion, $idPaciente)) === false) {
 $result =  mysqli_query($conexion, $idPaciente);
 $row = mysqli_fetch_assoc($result);
 
-if ($result = $conexion -> query($idPaciente)) {
-    while ($row = $result -> fetch_row()) {
-        $paciente = $row[0].' '.$row[1];
+if ($result = $conexion->query($idPaciente)) {
+    while ($row = $result->fetch_row()) {
+        $paciente = $row[0] . ' ' . $row[1];
     }
 }
 
@@ -40,7 +40,73 @@ if ($result = $conexion -> query($idPaciente)) {
                 <h4><?php echo $paciente; ?></h4>
             </div>
             <div class="generalInfoPatient">
-                <span>Informacion del paciente</span>
+                <nav>
+                    <fieldset>
+                        <legend>
+                            <h5>Informacion del paciente</h5>
+                        </legend>
+
+                        <div class="infoPaciente">
+                            <div>
+                                <label for="fecha">Fecha de Nacimiento:</label>
+                                <span>09/01/1992</span>
+                            </div>
+                            <div>
+                                <label for="direccion">Dirección:</label>
+                                <span>Paraná 593</span>
+                            </div>
+                        </div>
+
+                        <div class="infoPaciente">
+                            <div>
+                                <label for="tel">Teléfono:</label>
+                                <span> 33364528836 </span>
+                            </div>
+                            <div>
+                                <label for="sexo">Sexo:</label>
+                                <span> Femenino </span>
+                            </div>
+                        </div>
+
+                        <div class="infoPaciente">
+                            <div>
+                            <label for="obra_social">Obra Social:</label>
+                            <span> OSFATLYF </span>
+                            </div>
+                            
+                            <div>
+                            <label for="n_afiliado">N° de afiliado:</label>
+                            <span> 02545664/001 </span>
+                            </div>
+                        </div>
+
+                        <div class="infoPaciente">
+                            <div>
+                            <label for="tel_emerg">Teléfono de emergencia:</label>
+                            <span> 33645554564 </span>
+                            </div>
+
+                            <div>
+                            <label for="alergia">Alergico: </label>
+                            <span>-</span>
+                            </div>
+                        </div>
+
+                        <div class="infoPaciente">
+                            <div>
+                            <label for="g_sangre">Grupo Sanguineo: </label>
+                            <span> 0 </span>
+                            </div>
+
+                            <div>
+                            <label for="rh">RH:</label>
+                            <span> Positivo </span>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </nav>
+
             </div>
         </div>
         <div class="medicalInfo">
@@ -61,8 +127,8 @@ if ($result = $conexion -> query($idPaciente)) {
                         <textarea class="form-control" id="antecedentes" placeholder="Antecedentes"></textarea>
                     </div>
                     <div class="tab-pane fade" id="Historial" role="tabpanel" aria-labelledby="historial-tab">
-                        <div class="comentario">Tomografia computalizada. Todo Correcto  <br>
-                    Otro renglon con info</div>
+                        <div class="comentario">Tomografia computalizada. Todo Correcto <br>
+                            Otro renglon con info</div>
                         <div class="comentario">Tomografia computalizada 2. Todo Correcto</div>
                         <div class="comentario">Tomografia computalizada 3. Todo Correcto</div>
                         <div class="buttonContainer">
