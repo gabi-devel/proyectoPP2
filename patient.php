@@ -70,37 +70,37 @@ if ($result = $conexion->query($idPaciente)) {
 
                         <div class="infoPaciente">
                             <div>
-                            <label for="obra_social">Obra Social:</label>
-                            <span> OSFATLYF </span>
+                                <label for="obra_social">Obra Social:</label>
+                                <span> OSFATLYF </span>
                             </div>
-                            
+
                             <div>
-                            <label for="n_afiliado">N° de afiliado:</label>
-                            <span> 02545664/001 </span>
+                                <label for="n_afiliado">N° de afiliado:</label>
+                                <span> 02545664/001 </span>
                             </div>
                         </div>
 
                         <div class="infoPaciente">
                             <div>
-                            <label for="tel_emerg">Teléfono de emergencia:</label>
-                            <span> 33645554564 </span>
+                                <label for="tel_emerg">Teléfono de emergencia:</label>
+                                <span> 33645554564 </span>
                             </div>
 
                             <div>
-                            <label for="alergia">Alergico: </label>
-                            <span>-</span>
+                                <label for="alergia">Alergico: </label>
+                                <span>-</span>
                             </div>
                         </div>
 
                         <div class="infoPaciente">
                             <div>
-                            <label for="g_sangre">Grupo Sanguineo: </label>
-                            <span> 0 </span>
+                                <label for="g_sangre">Grupo Sanguineo: </label>
+                                <span> 0 </span>
                             </div>
 
                             <div>
-                            <label for="rh">RH:</label>
-                            <span> Positivo </span>
+                                <label for="rh">RH:</label>
+                                <span> Positivo </span>
                             </div>
                         </div>
 
@@ -113,17 +113,22 @@ if ($result = $conexion->query($idPaciente)) {
             <div class="medicalInfoTabs">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item antecede-tab" role="presentation">
-                        <button class="nav-link active" id="antecedentes-tab" data-bs-toggle="tab" data-bs-target="#Antecedentes" type="button" role="tab" aria-controls="Antecedentes" aria-selected="true">Antecedentes</button>
+                        <button class="nav-link active" id="antecedentes-tab" data-bs-toggle="tab"
+                            data-bs-target="#Antecedentes" type="button" role="tab" aria-controls="Antecedentes"
+                            aria-selected="true">Antecedentes</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="historial-tab" data-bs-toggle="tab" data-bs-target="#Historial" type="button" role="tab" aria-controls="Historial" aria-selected="false">Historial</button>
+                        <button class="nav-link" id="historial-tab" data-bs-toggle="tab" data-bs-target="#Historial"
+                            type="button" role="tab" aria-controls="Historial" aria-selected="false">Historial</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="lab-tab" data-bs-toggle="tab" data-bs-target="#Lab" type="button" role="tab" aria-controls="Lab" aria-selected="false">Lab</button>
+                        <button class="nav-link" id="lab-tab" data-bs-toggle="tab" data-bs-target="#Lab" type="button"
+                            role="tab" aria-controls="Lab" aria-selected="false">Lab</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="Antecedentes" role="tabpanel" aria-labelledby="antecedentes-tab">
+                    <div class="tab-pane fade show active" id="Antecedentes" role="tabpanel"
+                        aria-labelledby="antecedentes-tab">
                         <textarea class="form-control" id="antecedentes" placeholder="Antecedentes"></textarea>
                     </div>
                     <div class="tab-pane fade" id="Historial" role="tabpanel" aria-labelledby="historial-tab">
