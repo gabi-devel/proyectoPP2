@@ -1,13 +1,12 @@
-<?php 
+<?php
     session_start();
   
-    if(!$_SESSION['id']){
-        header('location:index.php');
-    }
+    if(!$_SESSION['id']) header('location:index.php');
 
-require_once "./pruebas/info-personal.php";
-require_once "./pruebas/coments.php";
-
+   /*  require_once "./pruebas/info-personal.php";
+    require_once "./pruebas/coments.php"; */
+    
+    $variable = $_POST['id'];
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +31,9 @@ require_once "./pruebas/coments.php";
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-                <h1 class="navbar-brand ms-auto me-md-3">Registro Medico <!-- echo ucfirst($_SESSION['nombre']); ?>--></h1>
-                <a href="logout.php?logout=true" class="ms-auto text-dark">Cerrar sesion</a>
-                <!-- Navbar-->
+            <h1 class="navbar-brand ms-auto me-md-3">Registro Medico <!-- echo ucfirst($_SESSION['nombre']); ?>--></h1>
+            <a href="logout.php?logout=true" class="ms-auto text-dark">Cerrar sesion</a>
+            <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -70,26 +69,26 @@ require_once "./pruebas/coments.php";
                             
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" id="myForm">
 <!-- SidebarSearch Form -->
-<div class="form-inline sb-sidenav-menu-heading">
-    <label class="mb-3">DNI paciente: </label>
-    <div class="input-group bg-light buscar" data-widget="sidebar-search">
-        <input class="form-control form-control-sidebar" placeholder="Search" type="number" name="dniPaciente">
-        <div class="input-group-append">
-            <button class="btn btn-sidebar">
-            <i class="fas fa-search fa-fw"></i>
-            </button>
+    <div class="form-inline sb-sidenav-menu-heading">
+        <label class="mb-3">DNI paciente: </label>
+        <div class="input-group bg-light buscar" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" placeholder="Search" type="number" name="dniPaciente">
+            <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                <i class="fas fa-search fa-fw"></i>
+                </button>
+            </div>
+        </div>
+        <div class="d-grid gap-3 d-md-block mt-3">
+            <button class="col-5" type="submit" name="submit" value="Buscar">Buscar</button>
+            <button class="col-5" type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
         </div>
     </div>
-    <div class="d-grid gap-3 d-md-block mt-3">
-        <button class="col-5" type="submit" name="submit" value="Buscar">Buscar</button>
-        <button class="col-5" type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
-    </div>
-</div>
 
-    
+        
 
-<div class="sb-sidenav-menu-heading">Acciones</div>
-<button class="mx-3" type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
+    <div class="sb-sidenav-menu-heading">Acciones</div>
+    <button class="mx-3" type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
 </form>                            
                         </div>
                     </div>
@@ -100,10 +99,40 @@ require_once "./pruebas/coments.php";
                     <div class=" container-fluid px-4">
                             <?php require 'proyectoPP2/config.php'; ?>
                             <h2 class="mt-4">
-                        <?php
-                            foreach ($info as $datoPorColumna) { // o while
+                        <?php 
+                        echo $variable;
+                        $idPaciente = "SELECT nombre, apellido FROM pacientes WHERE id = '$variable'";
+if (($result2 = mysqli_query($conexion, $idPaciente)) === false) {
+    die(mysqli_error($conexion));
+};
+
+$result =  mysqli_query($conexion, $idPaciente);
+$row = mysqli_fetch_assoc($result);
+
+if ($result = $conexion -> query($idPaciente)) {
+    while ($row = $result -> fetch_row()) {
+        $paciente = $row[0].' '.$row[1];
+    }
+}
+                        
+
+/* Intento de sacar otro conjunto de datos de comentarios */
+                        $idComentario = "SELECT comentario FROM coment WHERE id = '$variable'";
+if (($result3 = mysqli_query($conexion, $idComentario)) === false) {
+    die(mysqli_error($conexion));
+};
+
+$result4 =  mysqli_query($conexion, $idComentario);
+$row = mysqli_fetch_assoc($result);
+
+if ($result4 = $conexion -> query($idComentario)) {
+    while ($row = $result4 -> fetch_row()) {
+        $comentario = $row[0].' '.$row[1];
+    }
+}
+                        /* foreach ($info as $datoPorColumna) { // o while
                                 echo '<p><data value="'.$datoPorColumna['identificador'].'">'.$datoPorColumna['nombre']." ".$datoPorColumna['apell'].'</data></p>';
-                            }
+                            } */
                         ?>
                         </h2>
 
@@ -114,9 +143,8 @@ require_once "./pruebas/coments.php";
                                         <i class="fas fa-chart-bar me-1"></i>
                                         Datos personales
                                     </div>
-                                    <!-- <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div> -->
                                     <?php
-                                        foreach ($info as $datoPorColumna) { // o while
+                                        foreach ($result as $datoPorColumna) { // o while
                                             foreach ($datoPorColumna as $datito){
                                                 echo '<p>'.$datito.'</p>';
                                             }
@@ -131,15 +159,22 @@ require_once "./pruebas/coments.php";
                                         <i class="fas fa-chart-pie me-1"></i>
                                         Otros datos
                                     </div>
-                                    <!-- <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div> -->
                                     <?php
-                                        foreach ($todosComen as $datoPorColumna) { // o while
+/* Intento de sacar otro conjunto de datos de comentarios */
+                                        foreach ($result2 as $datoPorColumna) { // o while
                                             echo '<div class="border border-2 border-secondary rounded m-3 p-3 pb-0">';
                                             echo '<p><data value="'.$datoPorColumna['pacienteID'].'">'.$datoPorColumna['esp'].'</data></p>';
                                             echo '<p><data value="'.$datoPorColumna['pacienteID'].'">'.$datoPorColumna['com'].'</data></p>';
                                             echo '<p><data value="'.$datoPorColumna['pacienteID'].'">'.$datoPorColumna['fecha'].'</data></p>';
                                             echo '</div>';
                                         }
+                                        /* foreach ($todosComen as $datoPorColumna) { // o while
+                                            echo '<div class="border border-2 border-secondary rounded m-3 p-3 pb-0">';
+                                            echo '<p><data value="'.$datoPorColumna['pacienteID'].'">'.$datoPorColumna['esp'].'</data></p>';
+                                            echo '<p><data value="'.$datoPorColumna['pacienteID'].'">'.$datoPorColumna['com'].'</data></p>';
+                                            echo '<p><data value="'.$datoPorColumna['pacienteID'].'">'.$datoPorColumna['fecha'].'</data></p>';
+                                            echo '</div>';
+                                        } */
                                     ?>
                                     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                                 </div>

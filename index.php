@@ -1,48 +1,39 @@
 <?php
-/**/ session_start(); 
+session_start(); /**/
 require_once('config.php');
  
-/**/ if(isset($_POST['submit']))
-{
-	if(isset($_POST['email'],$_POST['password']) && !empty($_POST['email']) && !empty($_POST['password']))
-	{
+if(isset($_POST['submit']))/**/ {
+	if(isset($_POST['email'],$_POST['password']) && !empty($_POST['email']) && !empty($_POST['password'])) {
 		$email = trim($_POST['email']);
 		$password = trim($_POST['password']);
  
-		if(filter_var($email, FILTER_VALIDATE_EMAIL))
-		{
+		if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$sql = "select * from users where email = :email ";
 			$handle = $pdo->prepare($sql);
 			$params = ['email'=>$email];
 			$handle->execute($params);
-			if($handle->rowCount() > 0)
-			{
+			if($handle->rowCount() > 0) {
 				$getRow = $handle->fetch(PDO::FETCH_ASSOC);
-				if(password_verify($password, $getRow['password']))
-				{
+				if(password_verify($password, $getRow['password'])) {
 					unset($getRow['password']);
 					$_SESSION = $getRow;
 					header('location:dashboard.php');
 					exit();
 				}
-				else
-				{
+				else {
 					$errors[] = "Error en  Email o Password";
 				}
 			}
-			else
-			{
+			else {
 				$errors[] = "Error Email o Password";
 			}
 			
 		}
-		else
-		{
+		else {
 			$errors[] = "Email no valido";	
 		}
 	}
-	else
-	{
+	else {
 		$errors[] = "Email y Password son requeridos";	
 	}
 } 
@@ -107,6 +98,8 @@ require_once('config.php');
                     </div>
                 </main>
             </div>
+
+<!-- Footer -->
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
@@ -122,7 +115,8 @@ require_once('config.php');
                 </footer>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <script src="bootstrap/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
     </body>
 </html>

@@ -1,19 +1,12 @@
 <?php 
 
-require_once "pruebas/conectionPdo.php";
-require_once "dashboard.php";
-require_once "fichaPaciente.php";
-
-echo $variable;
-
-
-/* <script> console.log($variable); </script> */
+require_once "./pruebas/conectionPdo.php";
 
 class comentarios {
 
     public function commit($idPat) {
         $db = new Connection();
-        $consulta2 = "SELECT * FROM coment WHERE paciente_id = $algo";/* INNER JOIN pacientes ON pacientes.id = coment.paciente_id */
+        $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";/* INNER JOIN pacientes ON pacientes.id = coment.paciente_id */
         $resultado2 = $db->query($consulta2);
         $datos2 = [];
         if($resultado2->num_rows) {
