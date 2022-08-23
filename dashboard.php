@@ -133,7 +133,7 @@
                                         <td>'.$dato["dni"].'</td> 
                                         <td>'.$dato["fecha_nac"].'</td> 
                                         <td>'.$dato["sexo"].'</td> 
-                                        <td><form action="http://localhost/proyecto/fichaPaciente.php" method="post">
+                                        <td><form action="../proyectoPP2/fichaPaciente.php" method="post">
                                             <input type="hidden" name="id" value='.$dato["id"].'/>
                                             <input type="submit" value="Info"/>
                                             </form></td>                         
