@@ -48,7 +48,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">                           
-                            <form action="<?php echo "dashboard2.php"?>" method="post" id="myForm" class="mx-3">
+                            <form action="<?php echo "dashboard.php"?>" method="post" id="myForm" class="mx-3">
                                 <label class="my-3">DNI paciente: </label>
                                 <div class="input-group bg-light buscar" data-widget="sidebar-search">
                                     <input class="form-control form-control-sidebar" placeholder="Search" type="number" name="dniPaciente">
@@ -79,14 +79,14 @@
 
             <section id="search_clear">    
                 <!-- Buscar - Borrar -->
-                <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="container_buscar-agregar" id="myForm">
+                <!-- <form action="<?php echo 'dashboard.php'?>" method="post" class="container_buscar-agregar" id="myForm">
                     <div>
                         <label>DNI paciente: <input type="number" name="dniPaciente"></label>
                         <button type="submit" name="submit" value="Buscar">Buscar</button>
                         <button type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
                     </div>
                     <button type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
-                </form><br><br>
+                </form><br><br> -->
                 <script>
                 document.getElementById("clear").onclick = function(){
                     document.getElementById("myForm").reset();
