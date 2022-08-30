@@ -25,7 +25,8 @@
 
         <!-- Barra superior -->
         <nav class="sb-topnav navbar navbar-expand colorPrincipal">
-            <a class="navbar-brand ps-3 text-dark" href="index.html">Logo</a>
+        <img class= "logo" src="css\Logo1.svg" width="100px">    
+        <!-- img src="C:\xampp\htdocs\proyectoPP2\css\Logo1.svg" -->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <h1 class="navbar-brand ms-auto me-md-3">Registro Medico</h1>
             <a href="logout.php?logout=true" class="ms-auto text-dark">Cerrar sesion</a>
@@ -133,7 +134,7 @@
                                         <td>'.$dato["dni"].'</td> 
                                         <td>'.$dato["fecha_nac"].'</td> 
                                         <td>'.$dato["sexo"].'</td> 
-                                        <td><form action="http://localhost/proyecto/fichaPaciente.php" method="post">
+                                        <td><form action="http://localhost/proyectoPP2/fichaPaciente.php" method="post">
                                             <input type="hidden" name="id" value='.$dato["id"].'/>
                                             <input type="submit" value="Info"/>
                                             </form></td>                         
