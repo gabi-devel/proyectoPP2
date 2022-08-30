@@ -51,9 +51,11 @@ if(isset($_POST['submit']))/**/ {
         <meta name="author" content="" />
         <title>Login - SB Admin</title>
         <link href="css/styles.css" rel="stylesheet" />
+        
+       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    <body class="bg-primary">
+    <body style="background-image: url(css/fondo3.jpg); background-size:cover;">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
