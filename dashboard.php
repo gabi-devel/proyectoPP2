@@ -1,7 +1,7 @@
 <?php 
     session_start();
   
-    if(!$_SESSION['id'])   header('location:index.php');
+    // if(!$_SESSION['id'])   header('location:index.php');
     
     $conexion = mysqli_connect("localhost", "root", "", "proyecto"); 
 ?>
@@ -24,8 +24,10 @@
     <body class="sb-nav-fixed">
 
         <!-- Barra superior -->
+        
         <nav class="sb-topnav navbar navbar-expand colorPrincipal">
-        <img class= "logo" src="css\Logo1.svg" width="100px">    
+       
+        <img class= "logo" src="./css/Logo.svg" width="100px"> 
         <!-- img src="C:\xampp\htdocs\proyectoPP2\css\Logo1.svg" -->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <h1 class="navbar-brand ms-auto me-md-3">Registro Medico</h1>
@@ -79,7 +81,7 @@
                 <?php require 'config.php'; ?>
 
             <section id="search_clear">    
-                <!-- Buscar - Borrar -->
+                <!-- Buscar - Borrar --> 
                 <!-- <form action="<?php echo 'dashboard.php'?>" method="post" class="container_buscar-agregar" id="myForm">
                     <div>
                         <label>DNI paciente: <input type="number" name="dniPaciente"></label>
@@ -87,7 +89,7 @@
                         <button type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
                     </div>
                     <button type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
-                </form><br><br> -->
+                </form><br><br>
                 <script>
                 document.getElementById("clear").onclick = function(){
                     document.getElementById("myForm").reset();

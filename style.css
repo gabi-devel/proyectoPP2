@@ -13,12 +13,13 @@
     mix-blend-mode: hard-light;
     justify-content: space-between;
 }
-.agregarPaciente {
+/* .agregarPaciente {
     
-}
+} */
 
 .logo{
     margin-left: 10px;
+    width: 100px;
   }
 
 button {
@@ -80,9 +81,9 @@ button {
     /* display: flex;
     flex-direction: column; */
 }
-#submit {
-    /* width: 85px;
+/* #submit{
+    width: 85px;
     margin: auto;
     margin-right: 0;
-    float: right; */
-}
+    float: right; 
+} */

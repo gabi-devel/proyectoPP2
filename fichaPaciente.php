@@ -1,7 +1,7 @@
 <?php 
     session_start();
   
-    if(!$_SESSION['id']) header('location:index.php');
+    // if(!$_SESSION['id']) header('location:index.php');
 
 $conexion = mysqli_connect("localhost", "root", "", "proyecto"); 
 
