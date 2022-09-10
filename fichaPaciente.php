@@ -1,115 +1,122 @@
 <?php 
     session_start();
   
-    if(!$_SESSION['id']) header('location:index.php');
+    // if(!$_SESSION['id']) header('location:index.php');
 
-$conexion = mysqli_connect("localhost", "root", "", "proyecto"); 
+
+$conexion = mysqli_connect("localhost", "root", "", "proyecto");
 
 $variable = $_POST['id'];
 $idC;
 
 $consulta = "SELECT * FROM pacientes WHERE id = '$variable'";
-        $resultado = $conexion->query($consulta);
-        $datos = [];
-        if($resultado->num_rows) {
-            while($row = $resultado->fetch_assoc()) {
-                $datos[] = [
-                    /* 'identificador' => $row['id'], */
-                    'nombre' => $row['nombre'],
-                    'apell' => $row['apellido'],
-                    'nombre' => $row['nombre'],
-                    'dni' => $row['dni'],
-                    'nac' => $row['fecha_nac'],
-                    's' => $row['sexo'],
-                    'tel' => $row['tel'],
-                    'dir' => $row['direccion'],
-                ];
-            }
-        }
+$resultado = $conexion->query($consulta);
+$datos = [];
+if ($resultado->num_rows) {
+    while ($row = $resultado->fetch_assoc()) {
+        $datos[] = [
+            /* 'identificador' => $row['id'], */
+            'nombre' => $row['nombre'],
+            'apell' => $row['apellido'],
+            'nombre' => $row['nombre'],
+            'dni' => $row['dni'],
+            'nac' => $row['fecha_nac'],
+            's' => $row['sexo'],
+            'tel' => $row['tel'],
+            'dir' => $row['direccion'],
+        ];
+    }
+}
 
 $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
-    $resultado2 = $conexion->query($consulta2);
-    $datos2 = [];
-    if($resultado2->num_rows) {
-        while($row = $resultado2->fetch_assoc()) {
-            $datos2[] = [/* 
+$resultado2 = $conexion->query($consulta2);
+$datos2 = [];
+if ($resultado2->num_rows) {
+    while ($row = $resultado2->fetch_assoc()) {
+        $datos2[] = [/* 
                 'idComent' => $row['id'],
                 'pacienteID' => $row['paciente_id'],
                 'nombre' => $row['nombre'], */
-                'esp' => $row['especialidad'],
-                'com' => $row['comentario'],
-                'fecha' => $row['date'],
-            ];
-        }
+            'esp' => $row['especialidad'],
+            'com' => $row['comentario'],
+            'fecha' => $row['date'],
+        ];
     }
+}
 
-    
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Historia Clinica</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
-        <link rel="stylesheet" href="proyectoPP2/style.css">
-        <link rel="stylesheet" href="styleLoginReg.css">
-    </head>
-    <body class="sb-nav-fixed">
-        <!-- Barra superior  -->
-        <nav class="sb-topnav navbar navbar-expand colorPrincipal">
-            <a class="navbar-brand ps-3 text-dark" href="index.html">Logo</a>
-            <!-- Toggle --> <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <h1 class="navbar-brand ms-auto me-md-3">Registro Medico <!-- echo ucfirst($_SESSION['nombre']); ?>--></h1>
-            <a href="logout.php?logout=true" class="ms-auto text-dark">Cerrar sesion</a>
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>    
-        </nav>
 
-        <!-- Barra lateral -->          
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Historia Clinica</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
+    <link rel="stylesheet" href="proyectoPP2/style.css">
+    <link rel="stylesheet" href="styleLoginReg.css">
+</head>
 
-            <!-- Buscador -->                            
-            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" id="myForm">
-                <div class="form-inline sb-sidenav-menu-heading">
-                    <label class="mb-3">DNI paciente: </label>
-                    <div class="input-group bg-light buscar" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" placeholder="Search" type="number" name="dniPaciente">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="d-grid gap-3 d-md-block mt-3">
-                        <button class="col-5" type="submit" name="submit" value="Buscar">Buscar</button>
-                        <button class="col-5" type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
-                    </div>
-                </div>
-                <div class="sb-sidenav-menu-heading">Acciones</div>
-                <button class="mx-3" type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
-            </form>               
+<body class="sb-nav-fixed">
+    <!-- Barra superior  -->
+    <nav class="sb-topnav navbar navbar-expand colorPrincipal">
+        <a class="navbar-brand ps-3 text-dark" href="index.html">Logo</a>
+        <!-- Toggle --> <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <h1 class="navbar-brand ms-auto me-md-3">Registro Medico
+            <!-- echo ucfirst($_SESSION['nombre']); ?>-->
+        </h1>
+        <a href="logout.php?logout=true" class="ms-auto text-dark">Cerrar sesion</a>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
-            <!-- Final Barra lateral -->             
+    <!-- Barra lateral -->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <!-- Buscador -->
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="myForm">
+                            <div class="form-inline sb-sidenav-menu-heading">
+                                <label class="mb-3">DNI paciente: </label>
+                                <div class="input-group bg-light buscar" data-widget="sidebar-search">
+                                    <input class="form-control form-control-sidebar" placeholder="Search" type="number" name="dniPaciente">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sidebar">
+                                            <i class="fas fa-search fa-fw"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-3 d-md-block mt-3">
+                                    <button class="col-5" type="submit" name="submit" value="Buscar">Buscar</button>
+                                    <button class="col-5" type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
+                                </div>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Acciones</div>
+                            <button class="mx-3" type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
+                        </form>
+
+                        <!-- Final Barra lateral -->
                     </div>
                 </div>
             </nav>
@@ -119,12 +126,12 @@ $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
         <div id="layoutSidenav_content">
             <div class=" container-fluid px-4">
                 <!-- Falta que aparezca nombre y apellido de Paciente -->
-                <h2 class="mt-4"> Nombre: 
-                <?php
+                <h2 class="mt-4"> Nombre:
+                    <?php
                     foreach ($datos2 as $datoPorColumna) { // o while
                         /* echo '<p><data value="'.$datoPorColumna['identificador'].'">'.$datoPorColumna['nombre']." ".$datoPorColumna['apell'].'</data></p>'; */
                     }
-                ?>
+                    ?>
                 </h2>
 
                 <!-- 2 columnas: Datos personales -->
@@ -134,17 +141,17 @@ $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar me-1"></i>
-                                        Datos personales - <?php 
-                                                        $variableSinBarra = substr($variable,0,-1);
-                                                        echo 'id '.$variableSinBarra;
-                                                        ?> 
+                                Datos personales - <?php
+                                                    $variableSinBarra = substr($variable, 0, -1);
+                                                    echo 'id ' . $variableSinBarra;
+                                                    ?>
                             </div>
                             <?php
-                                foreach ($datos as $datoPorColumna) { // o while
-                                    foreach ($datoPorColumna as $datito){
-                                        echo '<p>'.$datito.'</p>';
-                                    }
+                            foreach ($datos as $datoPorColumna) { // o while
+                                foreach ($datoPorColumna as $datito) {
+                                    echo '<p>' . $datito . '</p>';
                                 }
+                            }
                             ?>
                             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                         </div>
@@ -168,13 +175,13 @@ $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
                         Comentarios
                     </div>
                     <?php
-                        foreach ($datos2 as $datoPorColumna) { // o while
-                            echo '<div class="border">';
-                                foreach ($datoPorColumna as $datito){
-                                    echo '<p>'.$datito.'</p>';
-                                }
-                            echo '</div>';
+                    foreach ($datos2 as $datoPorColumna) { // o while
+                        echo '<div class="border">';
+                        foreach ($datoPorColumna as $datito) {
+                            echo '<p>' . $datito . '</p>';
                         }
+                        echo '</div>';
+                    }
                     ?>
                 </div>
 
@@ -358,7 +365,8 @@ $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
 
                 <!-- Footer -->
                 <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-1"><hr>
+                    <div class="container-fluid px-1">
+                        <hr>
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2021</div>
                             <div>
@@ -370,10 +378,10 @@ $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
                     </div>
                 </footer>
 
-                </div>
+            </div>
             </main>
         </div>
-        
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
@@ -382,5 +390,6 @@ $consulta2 = "SELECT * FROM coment WHERE paciente_id = '$variable'";
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
-    </body>
+</body>
+
 </html>
