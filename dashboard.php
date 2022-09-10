@@ -1,13 +1,38 @@
-<?php
-session_start();
 
-//if(!$_SESSION['id'])   header('location:index.php');
+<?php 
+    session_start();
+  
+    // if(!$_SESSION['id'])   header('location:index.php');
+    
+    $conexion = mysqli_connect("localhost", "root", "", "proyecto");
 
-$conexion = mysqli_connect("localhost", "root", "", "proyecto");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+        <!-- Barra superior -->
+        
+        <nav class="sb-topnav navbar navbar-expand colorPrincipal">
+       
+        <img class= "logo" src="./css/Logo.svg" width="100px"> 
+        <!-- img src="C:\xampp\htdocs\proyectoPP2\css\Logo1.svg" -->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-dark" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <h1 class="navbar-brand ms-auto me-md-3">Registro Medico</h1>
+            <a href="logout.php?logout=true" class="ms-auto text-dark">Cerrar sesion</a>
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>    
+        </nav>
 
 <head>
     <meta charset="utf-8" />
@@ -24,6 +49,7 @@ $conexion = mysqli_connect("localhost", "root", "", "proyecto");
 </head>
 
 <body class="sb-nav-fixed">
+
 
     <!-- Barra superior -->
     <nav class="sb-topnav navbar navbar-expand colorPrincipal">
@@ -81,20 +107,23 @@ $conexion = mysqli_connect("localhost", "root", "", "proyecto");
                 <h1 class="mt-3">Bienvenido <?php echo ucfirst($_SESSION['nombre']); ?></h1>
                 <?php require 'config.php'; ?>
 
-                <section id="search_clear">
-                    <!-- Buscar - Borrar -->
-                    <!-- <form action="<?php echo 'dashboard.php' ?>" method="post" class="container_buscar-agregar" id="myForm">
+            <section id="search_clear">    
+                <!-- Buscar - Borrar --> 
+                <!-- <form action="<?php echo 'dashboard.php'?>" method="post" class="container_buscar-agregar" id="myForm">
+                    
                     <div>
                         <label>DNI paciente: <input type="number" name="dniPaciente"></label>
                         <button type="submit" name="submit" value="Buscar">Buscar</button>
                         <button type="submit" name="clear" value="clear" onclick="myFunction()" id="clear">Borrar</button>
                     </div>
                     <button type="button" name="agregar" value="agregar" id="agregarPaciente">Agregar Paciente</button>
-                </form><br><br> -->
-                    <script>
-                        document.getElementById("clear").onclick = function() {
-                            document.getElementById("myForm").reset();
-                        };
+
+                </form><br><br>
+                <script>
+                document.getElementById("clear").onclick = function(){
+                    document.getElementById("myForm").reset();
+                };
+
 
                         let add = document.getElementById("agregarPaciente");
 
@@ -134,13 +163,15 @@ $conexion = mysqli_connect("localhost", "root", "", "proyecto");
                                         <td> <font face="Arial">Direccion</font> </td> 
                                     </tr>
                                     <tr>
-                                        <td>' . $dato["nombre"] . '</td> 
-                                        <td>' . $dato["apellido"] . '</td> 
-                                        <td>' . $dato["dni"] . '</td> 
-                                        <td>' . $dato["fecha_nac"] . '</td> 
-                                        <td>' . $dato["sexo"] . '</td> 
-                                        <td><form action="http://localhost/Proyecto-PP2/proyectoPP2/fichaPaciente.php" method="post">
-                                            <input type="hidden" name="id" value=' . $dato["id"] . '/>
+
+                                        <td>'.$dato["nombre"].'</td> 
+                                        <td>'.$dato["apellido"].'</td> 
+                                        <td>'.$dato["dni"].'</td> 
+                                        <td>'.$dato["fecha_nac"].'</td> 
+                                        <td>'.$dato["sexo"].'</td> 
+                                        <td><form action="http://localhost/proyectoPP2/fichaPaciente.php" method="post">
+                                            <input type="hidden" name="id" value='.$dato["id"].'/>
+
                                             <input type="submit" value="Info"/>
                                             </form></td>                         
                                         <td>Cobertura</td> 
