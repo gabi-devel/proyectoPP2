@@ -60,8 +60,8 @@ if ($resultado2->num_rows) {
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
-    <link rel="stylesheet" href="proyectoPP2/style.css">
-    <link rel="stylesheet" href="styleLoginReg.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/barra.css">
 </head>
 
 <body class="sb-nav-fixed">

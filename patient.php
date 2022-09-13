@@ -28,7 +28,7 @@ if ($result = $conexion->query($idPaciente)) {
     <link rel="stylesheet" href="bootstrap/node_modules\bootstrap\dist\css\bootstrap.min.css">
     <script src="bootstrap\node_modules\bootstrap\dist\js\bootstrap.bundle.min.js"></script>
 
-    <link href="patient.css" rel="stylesheet" type="text/css">
+    <link href="css/patient.css" rel="stylesheet" type="text/css">
     <title>Historia Clinica</title>
 </head>
 

@@ -6205,13 +6205,13 @@ textarea.form-control-lg {
   --bs-aspect-ratio: calc(9 / 21 * 100%);
 }
 
-.fixed-top, .sb-nav-fixed #layoutSidenav #layoutSidenav_nav, .sb-nav-fixed .sb-topnav {
+/* .fixed-top, .sb-nav-fixed #layoutSidenav #layoutSidenav_nav, .sb-nav-fixed .sb-topnav {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 1030;
-}
+} */
 
 .fixed-bottom {
   position: fixed;
@@ -10965,12 +10965,12 @@ body {
   margin-right: 0.5rem;
 }
 
-.sb-topnav {
+/* .sb-topnav {
   padding-left: 0;
   height: 56px;
   z-index: 1039;
-}
-.sb-topnav .navbar-brand {
+} */
+/* .sb-topnav .navbar-brand {
   width: 225px;
   margin: 0;
 }
@@ -10979,7 +10979,7 @@ body {
 }
 .sb-topnav.navbar-light #sidebarToggle {
   color: #212529;
-}
+} */
 
 .sb-sidenav {
   display: flex;

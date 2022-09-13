@@ -1,11 +1,15 @@
 .colorPrincipal {
-    background-color: rgb(26, 164, 168);
+    background-color: #98d3c7;
 }
 
 #search_clear {
     background-color: rgb(26, 164, 168);
     margin: 2%;
     padding: 20px;
+}
+
+.navbar-expand{
+    padding-top:1000px;
 }
 
 .container_buscar-agregar {
